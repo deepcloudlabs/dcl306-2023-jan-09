@@ -143,7 +143,7 @@ class Mastermind extends React.PureComponent {
                                 </thead>
                                 <tbody>
                                 {
-                                    this.game.moves.map( (move,index) =>
+                                    this.state.game.moves.map( (move,index) =>
                                         <tr key={move.guess}>
                                             <td>{index+1}</td>
                                             <td>{move.guess}</td>
