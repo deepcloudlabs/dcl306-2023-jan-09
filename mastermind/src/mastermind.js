@@ -5,6 +5,7 @@
 // 2. Function-based Component -> Stateless Component
 // 3. Function-Based Component -- React Hooks --> Stateful Component
 import React from "react";
+import Move from "./move";
 
 // 1. Stateful Component
 class Mastermind extends React.PureComponent {
@@ -38,7 +39,7 @@ class Mastermind extends React.PureComponent {
 
     handleInputGuess = (event) => {
         const game = {...this.state.game};
-        game.guess = event.target.value;
+        game.guess = Number(event.target.value);
         this.setState({game});
     }
 
@@ -55,12 +56,40 @@ class Mastermind extends React.PureComponent {
         }
         return digits.reduce((number, digit) => 10 * number + digit, 0);
     }
-
+    initGame = (game) => {
+        game.tries = 0;
+        game.counter = 60;
+        game.moves = [];
+        game.guess = this.createSecret(game.level);
+        game.secret = this.createSecret(game.level);
+    }
     play = (event) => {
         const game = {...this.state.game};
-
-
-        this.setState({game});
+        const statistics = {...this.state.statistics};
+        if (game.guess === game.secret) {
+            game.level++;
+            if (game.level > 10) {
+                //TODO: Player wins the game
+            } else {
+                statistics.wins++;
+                game.lives++;
+                this.initGame(game);
+            }
+        } else {
+            game.tries++;
+            if (game.tries === game.maxTries) {
+                statistics.loses++;
+                game.lives--;
+                if (game.lives === 0) {
+                    //TODO: Player loses the game
+                } else {
+                    this.initGame(game);
+                }
+            } else {
+                game.moves.push(new Move(game.guess,game.secret));
+            }
+        }
+        this.setState({game, statistics});
     }
 
     render() { // View (js)
@@ -102,6 +131,28 @@ class Mastermind extends React.PureComponent {
                                    className="form-control"></input>
                             <label className="form-label" htmlFor="guess">Guess</label>
                             <button className="btn btn-success" onClick={this.play}>Play</button>
+                        </div>
+                        <div className="mb-3">
+                            <table className="table table-bordered table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Guess</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    this.game.moves.map( (move,index) =>
+                                        <tr key={move.guess}>
+                                            <td>{index+1}</td>
+                                            <td>{move.guess}</td>
+                                            <td>{move.message}</td>
+                                        </tr>
+                                    )
+                                }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
