@@ -20,23 +20,44 @@ class Mastermind extends React.PureComponent {
                 guess: 123,
                 moves: [],
                 lives: 3,
-                counter: 60
+                counter: 60,
+                pbClass: "bg-success",
+                pbWidth: "100%"
             },
             statistics: {
                 wins: 0,
                 loses: 0
             }
         }
-        setInterval(() => {
-            const game = {...this.state.game};
-            game.counter--;
-            //TODO: if counter is less than zero than time is out!
-            this.setState({game}, () => {
-                // console.log(this.state.game.level);
-            });
-        }, 1_000);
     }
 
+    componentDidMount() {
+        setInterval(this.countDown, 1_000);
+    }
+
+    countDown = () => {
+        const game = {...this.state.game};
+        const statistics = {...this.state.statistics};
+        game.counter--;
+        game.pbWidth = `${Math.round(game.counter * 100 / 60)}%`;
+        if (game.counter < 30) {
+            game.pbClass = "bg-danger";
+        } else if (game.counter < 45) {
+            game.pbClass = "bg-warning";
+        }
+        if (game.counter <= 0) {
+            statistics.loses++;
+            game.lives--;
+            if (game.lives === 0) {
+                //TODO: Player loses the game
+            } else {
+                this.initGame(game);
+            }
+        }
+        this.setState({game, statistics}, () => {
+            // console.log(this.state.game.level);
+        });
+    }
     handleInputGuess = (event) => {
         const game = {...this.state.game};
         game.guess = Number(event.target.value);
@@ -86,7 +107,7 @@ class Mastermind extends React.PureComponent {
                     this.initGame(game);
                 }
             } else {
-                game.moves.push(new Move(game.guess,game.secret));
+                game.moves.push(new Move(game.guess, game.secret));
             }
         }
         this.setState({game, statistics});
@@ -118,8 +139,8 @@ class Mastermind extends React.PureComponent {
                             <label className="form-label" htmlFor="counter">Counter: </label>
                             <div className="progress">
                                 <div id="counter"
-                                     style={{"width": "100%"}}
-                                     className="progress-bar bg-primary">{this.state.game.counter}</div>
+                                     style={{"width": this.state.game.pbWidth}}
+                                     className={"progress-bar ".concat(this.state.game.pbClass)}>{this.state.game.counter}</div>
                             </div>
                         </div>
                         <div className="form-floating mb-3">
@@ -135,17 +156,17 @@ class Mastermind extends React.PureComponent {
                         <div className="mb-3">
                             <table className="table table-bordered table-responsive table-hover">
                                 <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Guess</th>
-                                        <th>Message</th>
-                                    </tr>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Guess</th>
+                                    <th>Message</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 {
-                                    this.state.game.moves.map( (move,index) =>
+                                    this.state.game.moves.map((move, index) =>
                                         <tr key={move.guess}>
-                                            <td>{index+1}</td>
+                                            <td>{index + 1}</td>
                                             <td>{move.guess}</td>
                                             <td>{move.message}</td>
                                         </tr>
