@@ -45,8 +45,12 @@ class Mastermind extends React.PureComponent {
         let stateInLocalStorage = loadStateFromLocalStorage("mastermind-2023",gameInitialState);
         this.initGame(stateInLocalStorage.game);
         this.setState(stateInLocalStorage, () => {
-            setInterval(this.countDown, 1_000);
+            this.timerId = setInterval(this.countDown, 1_000);
         });
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId);
     }
 
     countDown = () => {

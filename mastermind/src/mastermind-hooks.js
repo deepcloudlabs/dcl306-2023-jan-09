@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Move from "./move";
 import Badge from "./component/common/badge";
 import Card from "./component/common/card";
@@ -13,6 +13,9 @@ import TableBody from "./component/common/table-body";
 import MoveEvaluation from "./component/mastermind/move-evaluation";
 import ProgressBar from "./component/common/progress-bar";
 import createSecret from "./utility/mastermind-utility";
+import FormGroup from "./component/common/form-group";
+import GameStatistics from "./component/mastermind/game-statistics";
+import GameConsole from "./component/mastermind/game-console";
 
 const gameInitialState = { // Model
     level: 3,
@@ -36,7 +39,13 @@ export default function MastermindHook() {
     const [game, setGame] = useState(gameInitialState);
     const [statistics, setStatistics] = useState(statisticsInitialState);
 
-    const countDown = function(){
+    useEffect(() => {
+        const timerId = setInterval(countDown, 1_000);
+        return () => {
+            clearInterval(timerId);
+        };
+    })
+    const countDown = function () {
         const newGame = {...game};
         const newStatistics = {...statistics};
         newGame.counter--;
@@ -65,13 +74,14 @@ export default function MastermindHook() {
     }
 
 
-    function initGame(game){
+    function initGame(game) {
         game.tries = 0;
         game.counter = 60;
         game.moves = [];
         game.guess = createSecret(game.level);
         game.secret = createSecret(game.level);
     }
+
     const play = (event) => {
         const newGame = {...game};
         const newStatistics = {...statistics};
@@ -104,49 +114,9 @@ export default function MastermindHook() {
 
     return (
         <Container>
-            <Card>
-                <CardHeader title="Game Console"></CardHeader>
-                <CardBody>
-                    <Badge id="level" label="Level" bgColor="bg-success" value={game.level}></Badge>
-                    <Badge id="lives" label="Lives" bgColor="bg-info" value={game.lives}></Badge>
-                    <div className="mb-3">
-                        <label className="form-label" htmlFor="level">Tries: </label>
-                        <span id="level" className="badge bg-success">{game.tries}</span>
-                        of
-                        <span id="level" className="badge bg-danger">{game.maxTries}</span>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label" htmlFor="counter">Counter: </label>
-                        <ProgressBar bgColor={game.pbClass} pbWidth={game.pbWidth}
-                                     value={game.counter}></ProgressBar>
-                    </div>
-                    <div className="form-floating mb-3">
-                        <InputText
-                            id="guess"
-                            value={game.guess}
-                            changeHandler={handleInputGuess}></InputText>
-                        <label className="form-label" htmlFor="guess">Guess</label>
-                        <Button bgColor="btn-success" clickFunction={play} label="Play"></Button>
-                    </div>
-                    <div className="mb-3">
-                        <Table>
-                            <TableHead columns="No,Guess,Message,Evaluation"></TableHead>
-                            <TableBody>
-                                {
-                                    game.moves.map((move, index) =>
-                                        <tr key={move.guess}>
-                                            <td>{index + 1}</td>
-                                            <td>{move.guess}</td>
-                                            <td>{move.message}</td>
-                                            <td><MoveEvaluation move={move}></MoveEvaluation></td>
-                                        </tr>
-                                    )
-                                }
-                            </TableBody>
-                        </Table>
-                    </div>
-                </CardBody>
-            </Card>
+            <GameConsole game={game} inputHandler={handleInputGuess} playFunction={play}></GameConsole>
+            <p></p>
+            <GameStatistics stats={statistics}></GameStatistics>
         </Container>
     );
 }
