@@ -6,6 +6,13 @@
 // 3. Function-Based Component -- React Hooks --> Stateful Component
 import React from "react";
 import Move from "./move";
+import Badge from "./component/common/badge";
+import Card from "./component/common/card";
+import Container from "./component/common/container";
+import CardHeader from "./component/common/card-header";
+import CardBody from "./component/common/card-body";
+import Button from "./component/common/button";
+import InputText from "./component/common/input-text";
 
 // 1. Stateful Component
 class Mastermind extends React.PureComponent {
@@ -115,20 +122,12 @@ class Mastermind extends React.PureComponent {
 
     render() { // View (js)
         return (
-            <div className="container">
-                <div className="card">
-                    <div className="card-header">
-                        <h4 className="card-title">Game Console</h4>
-                    </div>
-                    <div className="card-body">
-                        <div className="mb-3">
-                            <label className="form-label" htmlFor="level">Game Level: </label>
-                            <span id="level" className="badge bg-success">{this.state.game.level}</span>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label" htmlFor="lives">Lives: </label>
-                            <span id="lives" className="badge bg-info">{this.state.game.lives}</span>
-                        </div>
+            <Container>
+                <Card>
+                    <CardHeader title="Game Console"></CardHeader>
+                    <CardBody>
+                        <Badge id="level" label="Level" bgColor="bg-success" value={this.state.game.level}></Badge>
+                        <Badge id="lives" label="Lives" bgColor="bg-info" value={this.state.game.lives}></Badge>
                         <div className="mb-3">
                             <label className="form-label" htmlFor="level">Tries: </label>
                             <span id="level" className="badge bg-success">{this.state.game.tries}</span>
@@ -144,14 +143,12 @@ class Mastermind extends React.PureComponent {
                             </div>
                         </div>
                         <div className="form-floating mb-3">
-                            <input type="text"
+                            <InputText
                                    id="guess"
-                                   name="guess"
                                    value={this.state.game.guess}
-                                   onChange={this.handleInputGuess}
-                                   className="form-control"></input>
+                                   changeHandler={this.handleInputGuess}></InputText>
                             <label className="form-label" htmlFor="guess">Guess</label>
-                            <button className="btn btn-success" onClick={this.play}>Play</button>
+                            <Button bgColor="btn-success" clickFunction={this.play} label="Play"></Button>
                         </div>
                         <div className="mb-3">
                             <table className="table table-bordered table-responsive table-hover">
@@ -175,9 +172,9 @@ class Mastermind extends React.PureComponent {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </CardBody>
+                </Card>
+            </Container>
         );
     }
 }
