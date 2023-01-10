@@ -16,6 +16,7 @@ import InputText from "./component/common/input-text";
 import Table from "./component/common/table";
 import TableHead from "./component/common/table-head";
 import TableBody from "./component/common/table-body";
+import MoveEvaluation from "./component/mastermind/move-evaluation";
 
 // 1. Stateful Component
 class Mastermind extends React.PureComponent {
@@ -155,7 +156,7 @@ class Mastermind extends React.PureComponent {
                         </div>
                         <div className="mb-3">
                             <Table>
-                                <TableHead columns="No,Guess,Message"></TableHead>
+                                <TableHead columns="No,Guess,Message,Evaluation"></TableHead>
                                 <TableBody>
                                 {
                                     this.state.game.moves.map((move, index) =>
@@ -163,6 +164,7 @@ class Mastermind extends React.PureComponent {
                                             <td>{index + 1}</td>
                                             <td>{move.guess}</td>
                                             <td>{move.message}</td>
+                                            <td><MoveEvaluation move={move}></MoveEvaluation></td>
                                         </tr>
                                     )
                                 }

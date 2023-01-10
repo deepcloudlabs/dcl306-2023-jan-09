@@ -38,6 +38,10 @@ export default class Move {
         }
     }
 
+    hasNoMatch = () => {
+        return this.#_partialMatch === 0 && this.#_perfectMatch===0;
+    }
+
     //region getters
     get guess(){
         return this.#_guess;
