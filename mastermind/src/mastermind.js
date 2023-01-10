@@ -1,9 +1,3 @@
-// View (MVC) -> Composite Pattern
-// View -> Functional Programming
-// Component:
-// 1. Class-based Component    -> Stateful Component
-// 2. Function-based Component -> Stateless Component
-// 3. Function-Based Component -- React Hooks --> Stateful Component
 import React from "react";
 import Move from "./move";
 import Badge from "./component/common/badge";

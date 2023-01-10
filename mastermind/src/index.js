@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Mastermind from './mastermind';
 import "bootstrap/dist/css/bootstrap.css";
+import MastermindHook from "./mastermind-hooks";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Mastermind />
+    <MastermindHook />
   </React.StrictMode>
 );
