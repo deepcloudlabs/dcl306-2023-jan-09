@@ -43,7 +43,7 @@ export default function GameConsole({game,playFunction,inputHandler}){
                         <TableBody>
                             {
                                 game.moves.map((move, index) =>
-                                    <tr key={move.guess}>
+                                    <tr key={move.guess * index}>
                                         <td>{index + 1}</td>
                                         <td>{move.guess}</td>
                                         <td>{move.message}</td>

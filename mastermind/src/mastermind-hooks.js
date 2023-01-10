@@ -16,7 +16,8 @@ import createSecret from "./utility/mastermind-utility";
 import FormGroup from "./component/common/form-group";
 import GameStatistics from "./component/mastermind/game-statistics";
 import GameConsole from "./component/mastermind/game-console";
-import loadStateFromLocalStorage from "./utility/storage-utility";
+import loadStateFromLocalStorage, {saveStateToLocalStorage} from "./utility/storage-utility";
+import {useNavigate} from "react-router";
 
 const gameInitialState = { // Model
     level: 3,
@@ -37,12 +38,15 @@ const statisticsInitialState = {
 
 // 3. Stateful Component using Function and React Hooks
 export default function MastermindHook() {
+/*
     const localState = loadStateFromLocalStorage("mastermind-2023",
         {game: gameInitialState, statistics: statisticsInitialState}
     );
-
-    const [game, setGame] = useState(localState.game);
-    const [statistics, setStatistics] = useState(localState.statistics);
+*/
+    //initGame(localState.game);
+    const [game, setGame] = useState(gameInitialState);
+    const [statistics, setStatistics] = useState(statisticsInitialState);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const timerId = setInterval(countDown, 1_000);
@@ -64,7 +68,7 @@ export default function MastermindHook() {
             newStatistics.loses++;
             newGame.lives--;
             if (newGame.lives === 0) {
-                //TODO: Player loses the game
+                navigate("/loses")
             } else {
                 initGame(newGame);
             }
@@ -93,7 +97,7 @@ export default function MastermindHook() {
         if (newGame.guess === newGame.secret) {
             newGame.level++;
             if (newGame.level > 10) {
-                //TODO: Player wins the game
+                navigate("/wins")
             } else {
                 newStatistics.wins++;
                 newGame.lives++;
@@ -105,7 +109,7 @@ export default function MastermindHook() {
                 newStatistics.loses++;
                 newGame.lives--;
                 if (newGame.lives === 0) {
-                    //TODO: Player loses the game
+                    navigate("/loses")
                 } else {
                     initGame(newGame);
                 }
@@ -115,6 +119,7 @@ export default function MastermindHook() {
         }
         setGame(newGame);
         setStatistics(newStatistics);
+        saveStateToLocalStorage("mastermind-2023", {game: newGame, statistics: newStatistics});
     }
 
     return (
