@@ -1,1 +1,8 @@
 npx react-scripts start
+
+// View (MVC) -> Composite Pattern
+// View -> Functional Programming
+// Component:
+// 1. Class-based Component    -> Stateful Component
+// 2. Function-based Component -> Stateless Component
+// 3. Function-Based Component -- React Hooks --> Stateful Component
