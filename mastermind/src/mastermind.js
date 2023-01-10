@@ -13,6 +13,9 @@ import CardHeader from "./component/common/card-header";
 import CardBody from "./component/common/card-body";
 import Button from "./component/common/button";
 import InputText from "./component/common/input-text";
+import Table from "./component/common/table";
+import TableHead from "./component/common/table-head";
+import TableBody from "./component/common/table-body";
 
 // 1. Stateful Component
 class Mastermind extends React.PureComponent {
@@ -151,15 +154,9 @@ class Mastermind extends React.PureComponent {
                             <Button bgColor="btn-success" clickFunction={this.play} label="Play"></Button>
                         </div>
                         <div className="mb-3">
-                            <table className="table table-bordered table-responsive table-hover">
-                                <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Guess</th>
-                                    <th>Message</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <Table>
+                                <TableHead columns="No,Guess,Message"></TableHead>
+                                <TableBody>
                                 {
                                     this.state.game.moves.map((move, index) =>
                                         <tr key={move.guess}>
@@ -169,8 +166,8 @@ class Mastermind extends React.PureComponent {
                                         </tr>
                                     )
                                 }
-                                </tbody>
-                            </table>
+                                </TableBody>
+                            </Table>
                         </div>
                     </CardBody>
                 </Card>
