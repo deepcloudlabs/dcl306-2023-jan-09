@@ -18,33 +18,41 @@ import TableHead from "./component/common/table-head";
 import TableBody from "./component/common/table-body";
 import MoveEvaluation from "./component/mastermind/move-evaluation";
 import ProgressBar from "./component/common/progress-bar";
+import loadStateFromLocalStorage, {saveStateToLocalStorage} from "./utility/storage-utility";
+import createSecret from "./utility/mastermind-utility";
+
+const gameInitialState = { // Model
+    game: {
+        level: 3,
+        secret: createSecret(3),
+        tries: 0,
+        maxTries: 10,
+        guess: 123,
+        moves: [],
+        lives: 3,
+        counter: 60,
+        pbClass: "bg-success",
+        pbWidth: "100%"
+    },
+    statistics: {
+        wins: 0,
+        loses: 0
+    }
+};
 
 // 1. Stateful Component
 class Mastermind extends React.PureComponent {
     constructor(props, context) {
         super(props, context);
-        this.state = { // Model
-            game: {
-                level: 3,
-                secret: this.createSecret(3),
-                tries: 0,
-                maxTries: 10,
-                guess: 123,
-                moves: [],
-                lives: 3,
-                counter: 60,
-                pbClass: "bg-success",
-                pbWidth: "100%"
-            },
-            statistics: {
-                wins: 0,
-                loses: 0
-            }
-        }
+        this.state = gameInitialState;
     }
 
     componentDidMount() {
-        setInterval(this.countDown, 1_000);
+        let stateInLocalStorage = loadStateFromLocalStorage("mastermind-2023",gameInitialState);
+        this.initGame(stateInLocalStorage.game);
+        this.setState(stateInLocalStorage, () => {
+            setInterval(this.countDown, 1_000);
+        });
     }
 
     countDown = () => {
@@ -76,25 +84,14 @@ class Mastermind extends React.PureComponent {
         this.setState({game});
     }
 
-    createRandomDigit = (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    createSecret = (level) => {
-        const digits = [];
-        digits.push(this.createRandomDigit(1, 9));
-        while (digits.length < level) {
-            const digit = this.createRandomDigit(0, 9);
-            if (digits.includes(digit)) continue;
-            digits.push(digit);
-        }
-        return digits.reduce((number, digit) => 10 * number + digit, 0);
-    }
+
+
     initGame = (game) => {
         game.tries = 0;
         game.counter = 60;
         game.moves = [];
-        game.guess = this.createSecret(game.level);
-        game.secret = this.createSecret(game.level);
+        game.guess = createSecret(game.level);
+        game.secret = createSecret(game.level);
     }
     play = (event) => {
         const game = {...this.state.game};
@@ -122,7 +119,10 @@ class Mastermind extends React.PureComponent {
                 game.moves.push(new Move(game.guess, game.secret));
             }
         }
-        this.setState({game, statistics});
+        let newState = {game, statistics};
+        this.setState(newState, () => {
+            saveStateToLocalStorage("mastermind-2023",newState);
+        });
     }
 
     render() { // View (js)

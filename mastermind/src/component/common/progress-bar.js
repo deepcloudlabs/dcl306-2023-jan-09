@@ -1,4 +1,4 @@
-export default function({bgColor, value, pbWidth}){
+export default function ProgressBar({bgColor, value, pbWidth}){
     return (
         <div className="progress">
             <div id="counter"
