@@ -17,6 +17,7 @@ import Table from "./component/common/table";
 import TableHead from "./component/common/table-head";
 import TableBody from "./component/common/table-body";
 import MoveEvaluation from "./component/mastermind/move-evaluation";
+import ProgressBar from "./component/common/progress-bar";
 
 // 1. Stateful Component
 class Mastermind extends React.PureComponent {
@@ -140,11 +141,7 @@ class Mastermind extends React.PureComponent {
                         </div>
                         <div className="mb-3">
                             <label className="form-label" htmlFor="counter">Counter: </label>
-                            <div className="progress">
-                                <div id="counter"
-                                     style={{"width": this.state.game.pbWidth}}
-                                     className={"progress-bar ".concat(this.state.game.pbClass)}>{this.state.game.counter}</div>
-                            </div>
+                            <ProgressBar bgColor={this.state.game.pbClass} pbWidth={this.state.game.pbWidth} value={this.state.game.counter}></ProgressBar>
                         </div>
                         <div className="form-floating mb-3">
                             <InputText
