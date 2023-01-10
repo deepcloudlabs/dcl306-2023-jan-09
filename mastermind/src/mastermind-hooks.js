@@ -16,6 +16,7 @@ import createSecret from "./utility/mastermind-utility";
 import FormGroup from "./component/common/form-group";
 import GameStatistics from "./component/mastermind/game-statistics";
 import GameConsole from "./component/mastermind/game-console";
+import loadStateFromLocalStorage from "./utility/storage-utility";
 
 const gameInitialState = { // Model
     level: 3,
@@ -36,8 +37,12 @@ const statisticsInitialState = {
 
 // 3. Stateful Component using Function and React Hooks
 export default function MastermindHook() {
-    const [game, setGame] = useState(gameInitialState);
-    const [statistics, setStatistics] = useState(statisticsInitialState);
+    const localState = loadStateFromLocalStorage("mastermind-2023",
+        {game: gameInitialState, statistics: statisticsInitialState}
+    );
+
+    const [game, setGame] = useState(localState.game);
+    const [statistics, setStatistics] = useState(localState.statistics);
 
     useEffect(() => {
         const timerId = setInterval(countDown, 1_000);
