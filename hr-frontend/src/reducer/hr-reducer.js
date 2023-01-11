@@ -14,11 +14,12 @@ export default function hrReducer(hr, action){
             employee.photo = action.imageData;
         break;
         case "FIND_ALL_EMPLOYEES":
-            
+
         break;
         case "FIND_EMPLOYEE":
         break;
         case "HIRE_EMPLOYEE":
+            alert(action.success ? "HIRED" : "FAILED");
         break;
         case "FIRE_EMPLOYEE":
         break;

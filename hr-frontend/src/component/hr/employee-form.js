@@ -10,11 +10,24 @@ export default function EmployeeForm() {
     const hrDispatch = useHrDispatch();
 
     function fireEmployee() {
+
         hrDispatch({type: "FIRE_EMPLOYEE"});
     }
 
     function hireEmployee() {
-        hrDispatch({type: "HIRE_EMPLOYEE"});
+        fetch("http://localhost:4001/employees",{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(hr.employee)
+        }).then(res => res.json())
+          .then( result => {
+                hrDispatch({type: "HIRE_EMPLOYEE", success: true, result});
+          }).catch( error => {
+                hrDispatch({type: "HIRE_EMPLOYEE", success: false, error});
+        })
     }
 
     function updateEmployee() {
