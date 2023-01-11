@@ -49,7 +49,7 @@ ws.on("message", data => {
         "timestamp": frame.E,
         "id": frame.t
     } ;
-	console.log(JSON.stringify(frame));
+	//console.log(JSON.stringify(frame));
     let trade = new Trade(model);
     trade.save((err,t) => {
          if (err) console.error(err);

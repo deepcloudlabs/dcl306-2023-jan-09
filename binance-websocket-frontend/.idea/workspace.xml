@@ -5,42 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="caf31125-4be2-4556-b3a8-937402859ab7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/binance-websocket-frontend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/logo192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/logo512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/badge.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/button.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/card-body.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/card-header.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/card.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/check-box.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/container.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/form-group.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/input-text.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/photo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/progress-bar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/select-box.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/table-body.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/table-head.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/table.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../binance-websocket/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../binance-websocket/.idea/binance-websocket.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../binance-websocket/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../binance-websocket/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../binance-websocket/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../binance-websocket/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../binance-websocket/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673439059122</updated>
-      <workItem from="1673439060289" duration="1195000" />
+      <workItem from="1673439060289" duration="4698000" />
     </task>
     <servers />
   </component>
