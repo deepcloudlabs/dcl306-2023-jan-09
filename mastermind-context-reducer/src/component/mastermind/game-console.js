@@ -10,8 +10,11 @@ import Table from "../common/table";
 import TableHead from "../common/table-head";
 import TableBody from "../common/table-body";
 import MoveEvaluation from "./move-evaluation";
+import {useGame, useMoves} from "../../GameProvider";
 
-export default function GameConsole({game,playFunction,inputHandler}){
+export default function GameConsole({playFunction,inputHandler}){
+    const hamleler = useMoves();
+    const game = useGame();
     return (
         <Card>
             <CardHeader title="Game Console"></CardHeader>
@@ -42,7 +45,7 @@ export default function GameConsole({game,playFunction,inputHandler}){
                         <TableHead columns="No,Guess,Message,Evaluation"></TableHead>
                         <TableBody>
                             {
-                                game.moves.map((move, index) =>
+                                hamleler.map((move, index) =>
                                     <tr key={move.guess * index}>
                                         <td>{index + 1}</td>
                                         <td>{move.guess}</td>
