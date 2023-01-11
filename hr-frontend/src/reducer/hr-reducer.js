@@ -1,30 +1,46 @@
-export default function hrReducer(hr, action){
-    const employee = {...hr.employee};
-    const employees = [...hr.employees];
+import Employee from "../model/employee";
+
+export default function hrReducer(hr, action) { // pure function
+    let employee = {...hr.employee};
+    let employees = [...hr.employees];
     switch (action.type) {
         case "INPUT_CHANGE":
             const inputName = action.event.target.name;
             employee[inputName] = action.event.target.value;
-        break;
+            break;
         case "INPUT_CHANGE_CHECKBOX":
             const checkBoxName = action.event.target.name;
             employee[checkBoxName] = !employee[checkBoxName];
-        break;
+            break;
         case "PHOTO_CHANGE":
             employee.photo = action.imageData;
-        break;
+            break;
         case "FIND_ALL_EMPLOYEES":
-
-        break;
+            if (action.success) {
+                employees = action.employees;
+            } else {
+                //TODO: handle rest call error
+            }
+            break;
         case "FIND_EMPLOYEE":
-        break;
+            if (action.success) {
+                employee = new Employee(action.employee);
+            } else {
+                //TODO: handle rest call error
+            }
+            break;
         case "HIRE_EMPLOYEE":
-            alert(action.success ? "HIRED" : "FAILED");
-        break;
+            break;
         case "FIRE_EMPLOYEE":
-        break;
+            if (action.success) {
+                employee = new Employee(action.employee);
+                employees = employees.filter(emp => emp.identityNo != employee.identityNo);
+            } else {
+                //TODO: handle rest call error
+            }
+            break;
         case "UPDATE_EMPLOYEE":
-        break;
+            break;
     }
     return {employee, employees};
 }

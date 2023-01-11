@@ -31,6 +31,10 @@ export function useHr() {
     const {hr} = useContext(HrContext);
     return hr;
 }
+export function useEmployees() {
+    const {hr} = useContext(HrContext);
+    return hr.employees;
+}
 
 export function useHrDispatch() {
     const {hrDispatch} = useContext(HrContext);
