@@ -9,7 +9,43 @@ import TableHead from "./component/common/table-head";
 import TableBody from "./component/common/table-body";
 import io from "socket.io-client";
 import {Line} from "react-chartjs-2";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+export const options = {
+    responsive: true,
+    animation: false,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'BINANCE Market Data',
+        },
+    },
+};
+
 const socket = io("ws://localhost:5555")
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 function App() {
     const [windowSize, setWindowSize] = useState(25);
@@ -43,7 +79,7 @@ function App() {
         socket.on("ticker", (trade) => {
             setTrades(trades => {
                 let newTrades = [...trades, trade];
-                if (newTrades.length > windowSize){
+                if (newTrades.length > windowSize) {
                     const index = newTrades.length - windowSize;
                     newTrades = newTrades.slice(index);
                 }
@@ -54,12 +90,12 @@ function App() {
                 newChartData.datasets = [...chartData.datasets];
                 newChartData.labels = [...chartData.labels, trade.timestamp];
                 if (newChartData.labels.length > windowSize) {
-                    let index = newChartData.labels.length - windowSize + 1;
+                    let index = newChartData.labels.length - windowSize;
                     newChartData.labels = newChartData.labels.slice(index);
                 }
                 newChartData.datasets[0].data = [...chartData.datasets[0].data, Number(trade.price)];
                 if (newChartData.datasets[0].data.length > windowSize) {
-                    let index = newChartData.datasets[0].data.length - windowSize + 1;
+                    let index = newChartData.datasets[0].data.length - windowSize;
                     newChartData.datasets[0].data = newChartData.datasets[0].data.slice(index);
                 }
                 return newChartData;
@@ -68,18 +104,17 @@ function App() {
         return () => {
             socket.off("ticker");
         }
-    },[trades]);
+    });
     return (
         <Container>
             <p></p>
             <Card>
                 <CardHeader title="Market Chart Data"/>
                 <CardBody>
-                    <Line redraw
-                          data={chartData}
-                          width={640}
+                    <Line data={chartData}
+                          width={720}
                           height={480}
-                    options={{animation: false, maintainAspectRatio: false}}>
+                          options={options}>
 
                     </Line>
                 </CardBody>
