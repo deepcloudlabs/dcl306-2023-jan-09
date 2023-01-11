@@ -10,6 +10,20 @@ export default function hrReducer(hr, action){
             const checkBoxName = action.event.target.name;
             employee[checkBoxName] = !employee[checkBoxName];
         break;
+        case "PHOTO_CHANGE":
+            employee.photo = action.imageData;
+        break;
+        case "FIND_ALL_EMPLOYEES":
+            
+        break;
+        case "FIND_EMPLOYEE":
+        break;
+        case "HIRE_EMPLOYEE":
+        break;
+        case "FIRE_EMPLOYEE":
+        break;
+        case "UPDATE_EMPLOYEE":
+        break;
     }
     return {employee, employees};
 }
